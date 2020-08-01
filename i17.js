@@ -1,4 +1,19 @@
 
+/*
+separar 
+  respissue
+  respcoment
+  mix -> htm
+
+
+  regex!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+  o vieja escuela 
+  mmm... awk es mas vieja escuela
+
+*/
+
+
+
 async function lei17(){
 
   const urlIssue = "https://api.github.com/repos/javascript-tutorial/es.javascript.info/issues/17"
@@ -37,11 +52,10 @@ async function lei17(){
 
 function ffOld(que){
 
-//   const regexp = /^\* \[ ]/
+  const regexp = /^\* \[ ]/
 
+  //  const regexp = /(^\* \[ ] )(\[[\w-]\])/     wtf 
 //  const regexp = /^(\* \[ ]) \[(/w+)] \((\w+)\) \((@/w+)\) \(?(!#)\)/ 
-
-  const regexp = /(^\* \[ ] )(\[[\w-]\])/ 
 
   return regexp.test(que)
 }
