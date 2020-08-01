@@ -37,7 +37,7 @@ async function lei17(){
 
 //    alert (aOldArticles.length)
 
-    document.getElementById("lista").innerHTML = "<hr><p>" + aOldArticles.join("</p><p>") + "</p><hr>"
+    document.getElementById("lista").innerHTML = aOldArticles.length + "<hr><p>" + aOldArticles.join("</p><p>") + "</p><hr>"
 
    
 //    for(let i of aOldArticles){
