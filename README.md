@@ -1,11 +1,13 @@
 # zone17
 
-Reads issue17 from spanish js tutorial 
+Reads issue17 progress from [JS spanish tutorial](https://github.com/javascript-tutorial/es.javascript.info/issues/17)
 
 .then makes a list of "abandoned" articles  (taken with no PR)
 
 
-Known bugs:
+
+
+## Known bugs:
 
 None, I'm perfect.
 
