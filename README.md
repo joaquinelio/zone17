@@ -18,12 +18,11 @@ If user changes login name,
 articles won't match. So the date won't show right.
 
 
-Future releases: Performance, css, toggle options, user feedback...
-
+## Future releases: Performance, css, toggle options, user feedback...
 Nah.
 
 
-About semicolons:
+## About semicolons:
 
 What about it. No need.
 It's not Java. With no semicolons the look is cleaner and I have fewer errors.
