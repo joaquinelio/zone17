@@ -50,16 +50,22 @@ async function lei17(){
   }
 
   //--------------------------------------------------------
-  let sArticle="<p>"
+  let sArticle="<table ><tr><th>Artículo</th><th>Traductor</th><th>Fecha</th></tr>"
   for (let s of aArticles){ 
     //s.shift()
     //sArticle += "<hr><p>" + s.join("</p><p>") + "</p>"  
-    sArticle += "<hr><p>" + s[artArt] + "</p><p> " + s[artUser] + "</p><p> " + s[artDate] + "</p>"
+    
+    //sArticle += "<hr><p>" + s[artArt] + "  " + s[artUser] + "  " + s[artDate] + "</p>"
+
+    sArticle += '<tr><td>' + 
+      s[artArt] + "</td><td>  " + s[artUser] + "</td><td>  " + s[artDate] + "</td></tr>"
+
   }
   document.getElementById("lista").innerHTML = 
-      aArticles.length + 
+      "<p>Tomados sin PR: " + aArticles.length + "</p><p> " + 
+      Date() + "</p>" +
       sArticle +
-      "</p><hr>"
+      "</table>"
 }
 
 
