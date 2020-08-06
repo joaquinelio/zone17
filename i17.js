@@ -49,6 +49,9 @@ async function lei17(){
     }
   }
 
+//  aArticles.sort( (a,b)=>( a[artDate] > b[artDate] ) )  // ????'?
+  aArticles.sort( (a,b)=>( (a[artDate]<b[artDate])?-1:1) )
+
   //--------------------------------------------------------
   let sArticle="<table ><tr><th>Artículo</th><th>Traductor</th><th>Fecha</th></tr>"
   for (let s of aArticles){ 
@@ -114,9 +117,3 @@ async function getComments(url){
   }
   return aComments  
 }
-
-/*
-  regex!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-  o vieja escuela 
-  mmm... awk es mas vieja escuela
-*/
