@@ -2,8 +2,8 @@
 
 Reads issue17 progress from [JS spanish tutorial](https://github.com/javascript-tutorial/es.javascript.info/issues/17)
 
-.then makes a list of "abandoned" articles  (taken with no PR)
-
+.then makes a list of "abandoned" articles  (taken with no PR).
+update: Fewer filters, No reorder. It's a nice view, and easy to filter later.
 
 
 

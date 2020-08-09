@@ -24,13 +24,14 @@ async function lei17(){
 
                   // *, [x], [article desc], (http:), (@user), #pr
   const regIssue = /(\[[\sX]\])\s(\[.+\])\s?(\(http[.\S]+\))\s?(\(@\w+\))?\s?(#\d+)?/
+
   //const regComments = /  /
 
   //--------------------------------------------------------
   let aArticles = await getArticles( urlIssue, regIssue  )
   
-  aArticles.shift()   // el 1ro es el ejemplo de Ilya
-  for (let aa of aArticles){aa.push("1492-10-12")}  // date 
+//  aArticles.shift()   // el 1ro es el ejemplo de Ilya //ya eta filtrado
+  for (let aa of aArticles){aa.push(" ")}  // date 
 
   //--------------------------------------------------------
  let aComments = await getComments(urlComments)
@@ -39,33 +40,38 @@ async function lei17(){
   for (let ac of aComments){
     for (let aa of aArticles){
 
-      if(aa[artArt] === "[" + ac[comBody] + "]" && 
-          aa[artUser] == "(@"+ac[comUser]+")" && 
+      if (aa[artUser]==undefined) {aa[artUser]=""} 
+      if (aa[artPR]==undefined) {aa[artPR]=""} 
+       
+
+      if(aa[artArt] === `[` + ac[comBody] + `]` && 
+          aa[artUser] == `(@`+ac[comUser]+`)` && 
           aa[artDate] < ac[comDate]) {
 
-              aa[artDate] = ac[comDate]  
+              aa[artDate] = ac[comDate].substring(0, 10)  
+              if (aa[artUser]=="undefined") {aa[artUser]=""} 
               //break ??
       }
     }
   }
 
-//  aArticles.sort( (a,b)=>( a[artDate] > b[artDate] ) )  // ????'?
-  aArticles.sort( (a,b)=>( (a[artDate]<b[artDate])?-1:1) )
+//  //aArticles.sort( (a,b)=>( a[artDate] > b[artDate] ) )  // ????'?
+//  aArticles.sort( (a,b)=>( (a[artDate]<b[artDate])?-1:1) )
 
   //--------------------------------------------------------
-  let sArticle="<table ><tr><th>Artículo</th><th>Traductor</th><th>Fecha</th></tr>"
+  let sArticle="<table ><tr><th>Artículo</th><th>Traductor</th><th>Fecha</th><th>PR</th></tr>"
   for (let s of aArticles){ 
     //s.shift()
     //sArticle += "<hr><p>" + s.join("</p><p>") + "</p>"  
     
     //sArticle += "<hr><p>" + s[artArt] + "  " + s[artUser] + "  " + s[artDate] + "</p>"
 
-    sArticle += '<tr><td>' + 
-      s[artArt] + "</td><td>  " + s[artUser] + "</td><td>  " + s[artDate] + "</td></tr>"
+    sArticle += `<tr><td>` + 
+      s[artArt] + `</td><td>  ` + s[artUser] + `</td><td>  ` + s[artDate] + `</td><td>  ` + s[artPR] + `</td></tr>`
 
   }
   document.getElementById("lista").innerHTML = 
-      "<p>Tomados sin PR: " + aArticles.length + "</p><p> " + 
+      "<p>Articles: " + aArticles.length + "</p><p> " + 
       Date() + "</p>" +
       sArticle +
       "</table>"
@@ -87,7 +93,7 @@ async function getArticles(url, regexp){
   }
   console.log(aArticles.shift().length )
 
-  return aArticles.map( (s)=>s.match(regexp) ).filter((x)=>( x[artPR] == undefined && x[artUser] != undefined ) )     
+  return aArticles.map( (s)=>s.match(regexp) ) //.filter((x)=>( x[artPR] == undefined && x[artUser] != undefined ) )     
 }
 
 
