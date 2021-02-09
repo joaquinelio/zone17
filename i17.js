@@ -8,7 +8,10 @@
 
 const urlIssue = "https://api.github.com/repos/javascript-tutorial/es.javascript.info/issues/17"
 const urlComments = "https://api.github.com/repos/javascript-tutorial/es.javascript.info/issues/17/comments?page="
+// need to replace w+ test with end test ") ] " 
 
+// art = {PR:5, User:4,  }  
+// cmt = { }
 const artPR = 5
 const artUser = 4
 const artArt = 2
