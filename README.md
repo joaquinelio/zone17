@@ -3,15 +3,16 @@
 Reads issue17 progress from [JS spanish tutorial](https://github.com/javascript-tutorial/es.javascript.info/issues/17)
 
 .then makes a list of "abandoned" articles  (taken with no PR).
-update: Fewer filters, No reorder. It's a nice view, and easy to filter later.
+
+Update: Fewer filters, No reorder. It's a nice view, and easy to filter later.
 
 
-
+---
 ## Known bugs:
 
 None, I'm perfect.
 
-
+---
 ## Issues 
 
 If article changes its name,
@@ -24,10 +25,11 @@ same with titles.  Clearly a Ilyas fault too.  :(
 
 I should practice with generators instead of paging...  this would be fun- 
 
+---
 ## Future releases: Performance, css, toggle options, user feedback...
 Nah.
 
-
+---
 ## About semicolons:
 
 What about it. No need.
@@ -41,6 +43,5 @@ To force newline.
 
 JS, the freedom to step on the flowers.
 
-
-By 
-Joaquin Elio Fernandez
+---
+By JoaquinElio
