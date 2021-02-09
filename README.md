@@ -32,10 +32,15 @@ Nah.
 
 What about it. No need.
 It's not Java. With no semicolons the look is cleaner and I have fewer errors.
-I just use them when needed: To force newline.
+I just use them when needed: 
+To force newline.
 
 `
   ;(a>b)? fa():fb()
 `  
 
 JS, the freedom to step on the flowers.
+
+
+By 
+Joaquin Elio Fernandez
