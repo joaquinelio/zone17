@@ -26,7 +26,7 @@ const comId = 3
 async function lei17(){
 
                   // *, [x], [article desc], (http:), (@user), #pr
-  const regIssue = /(\[[\sX]\])\s(\[.+\])\s?(\(http[.\S]+\))\s?(\(@\w+\))?\s?(#\d+)?/
+  const regIssue = /(\[[\sX]\])\s(\[.+\])\s?(\(http[.\S]+\))\s?(\(@\.\))?\s?(#\d+)?/
 
   //const regComments = /  /
 
@@ -94,7 +94,7 @@ async function getArticles(url, regexp){
   } else {
     alert("resp issue BAAAAD") 
   }
-  console.log(aArticles.shift().length )
+  //console.log(aArticles.shift().length )
 
   return aArticles.map( (s)=>s.match(regexp) ) //.filter((x)=>( x[artPR] == undefined && x[artUser] != undefined ) )     
 }
