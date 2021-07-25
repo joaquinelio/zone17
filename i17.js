@@ -6,9 +6,10 @@
 //          article orderby, unique newer date    // no, no
 //          -filter by bot reaction-              // couldn't find    
 
-const urlIssue = "https://api.github.com/repos/javascript-tutorial/es.javascript.info/issues/17"
-const urlComments = "https://api.github.com/repos/javascript-tutorial/es.javascript.info/issues/17/comments?page="
-// need to replace w+ test with end test ") ] " 
+const urlIssue = document.getElementById("urlissue").value 
+//"https://api.github.com/repos/javascript-tutorial/es.javascript.info/issues/17"
+
+const urlComments = urlIssue+ "/comments?page=" 
 
 // art = {PR:5, User:4,  }  
 // cmt = { }
@@ -22,18 +23,15 @@ const comUser = 1
 const comDate = 2
 const comId = 3
 
-
 async function lei17(){
 
                   // *, [x], [article desc], (http:), (@user), #pr
-  const regIssue = /(\[[\sX]\])\s(\[.+\])\s?(\(http[.\S]+\))\s?(\(@\.\))?\s?(#\d+)?/
+  const regIssue = /(\[[\sX]\])\s(\[.+\])\s?(\(http[.\S]+\))\s?(\(@.+\))?\s?(#\d+)?/
 
   //const regComments = /  /
 
   //--------------------------------------------------------
   let aArticles = await getArticles( urlIssue, regIssue  )
-  
-//  aArticles.shift()   // el 1ro es el ejemplo de Ilya //ya eta filtrado
   for (let aa of aArticles){aa.push(" ")}  // date 
 
   //--------------------------------------------------------
@@ -42,18 +40,16 @@ async function lei17(){
   //--------------------------------------------------------
   for (let ac of aComments){
     for (let aa of aArticles){
-
-      if (aa[artUser]==undefined) {aa[artUser]=""} 
-      if (aa[artPR]==undefined) {aa[artPR]=""} 
-       
-
+      
+      aa[artUser] = aa[artUser] || "" //   ||= ""
+      aa[artPR] = aa[artPR] || ""
+  
       if(aa[artArt] === `[` + ac[comBody] + `]` && 
           aa[artUser] == `(@`+ac[comUser]+`)` && 
           aa[artDate] < ac[comDate]) {
 
               aa[artDate] = ac[comDate].substring(0, 10)  
-              if (aa[artUser]=="undefined") {aa[artUser]=""} 
-              //break ??
+//              aa[artUser] = aa[artUser] || "" 
       }
     }
   }
@@ -94,7 +90,6 @@ async function getArticles(url, regexp){
   } else {
     alert("resp issue BAAAAD") 
   }
-  //console.log(aArticles.shift().length )
 
   return aArticles.map( (s)=>s.match(regexp) ) //.filter((x)=>( x[artPR] == undefined && x[artUser] != undefined ) )     
 }
@@ -105,8 +100,7 @@ async function getComments(url){
   let pagina = 1
   let respComments 
 
-  while (true){   // CAREFUL
-
+  while (true){   
     respComments = await fetch(url+pagina)
     if (respComments.ok){
       let json = await respComments.json()
@@ -124,5 +118,6 @@ async function getComments(url){
     } 
     pagina++  
   }
+  
   return aComments  
 }
