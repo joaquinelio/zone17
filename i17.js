@@ -6,10 +6,10 @@
 //          article orderby, unique newer date    // no, no
 //          -filter by bot reaction-              // couldn't find    
 
-const urlIssue = document.getElementById("urlissue").value 
+//const urlIssue = document.getElementById("urlissue").value 
 //"https://api.github.com/repos/javascript-tutorial/es.javascript.info/issues/17"
 
-const urlComments = urlIssue+ "/comments?page=" 
+//const urlComments = urlIssue+ "/comments?page=" 
 
 // art = {PR:5, User:4,  }  
 // cmt = { }
@@ -24,15 +24,21 @@ const comDate = 2
 const comId = 3
 
 async function lei17(){
+  
+  let urlIssue = document.getElementById("urlissue").value
+  let urlComments = urlIssue + "/comments?page=" 
+  
 
                   // *, [x], [article desc], (http:), (@user), #pr
-  const regIssue = /(\[[\sX]\])\s(\[.+\])\s?(\(http[.\S]+\))\s?(\(@.+\))?\s?(#\d+)?/
+  let regIssue = /(\[[\sX]\])\s(\[.+\])\s?(\([.\S]+\))\s?(\(@.+\))?\s?(#\d+)?/
 
   //const regComments = /  /
 
   //--------------------------------------------------------
   let aArticles = await getArticles( urlIssue, regIssue  )
-  for (let aa of aArticles){aa.push(" ")}  // date 
+  for (let aa of aArticles){
+    if(Array.isArray(aa)) aa.push(" ")
+  }  // date 
 
   //--------------------------------------------------------
  let aComments = await getComments(urlComments)
@@ -40,6 +46,8 @@ async function lei17(){
   //--------------------------------------------------------
   for (let ac of aComments){
     for (let aa of aArticles){
+      
+      if (!Array.isArray(aa)) continue
       
       aa[artUser] = aa[artUser] || "" //   ||= ""
       aa[artPR] = aa[artPR] || ""
@@ -64,7 +72,8 @@ async function lei17(){
     //sArticle += "<hr><p>" + s.join("</p><p>") + "</p>"  
     
     //sArticle += "<hr><p>" + s[artArt] + "  " + s[artUser] + "  " + s[artDate] + "</p>"
-
+    if (!Array.isArray(s)) continue
+    
     sArticle += `<tr><td>` + 
       s[artArt] + `</td><td>  ` + s[artUser] + `</td><td>  ` + s[artDate] + `</td><td>  ` + s[artPR] + `</td></tr>`
 
@@ -85,13 +94,15 @@ async function getArticles(url, regexp){
 
     let json = await respIssue.json()
 
-    aArticles = json.body.split("\n").filter((que)=>/^\* \[ ]/.test(que)) // No traducidos [X]  //.map( (s)=>s.match(regexp) )   
-
+    aArticles = json.body.split("\n").filter((que) => /http/.test(que) && /^\* \[ ]/.test(que)) // No traducidos [X]  //.map( (s)=>s.match(regexp) )   
+    
+    
   } else {
     alert("resp issue BAAAAD") 
   }
 
-  return aArticles.map( (s)=>s.match(regexp) ) //.filter((x)=>( x[artPR] == undefined && x[artUser] != undefined ) )     
+  //                                    // poner .filter ! nulls
+  return aArticles.map( (s)=>s.match(regexp) )   //.filter((x)=>( x[artPR] == undefined && x[artUser] != undefined ) )     
 }
 
 
