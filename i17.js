@@ -66,7 +66,7 @@ async function lei17(){
 //  aArticles.sort( (a,b)=>( (a[artDate]<b[artDate])?-1:1) )
 
   //--------------------------------------------------------
-  let sArticle="<table ><tr><th>Artículo</th><th>Traductor</th><th>Fecha</th><th>PR</th></tr>"
+  let sArticle="<table ><tr><th>Artícle</th><th>Translator</th><th>Claimed Date</th><th>PR</th></tr>"
   for (let s of aArticles){ 
     //s.shift()
     //sArticle += "<hr><p>" + s.join("</p><p>") + "</p>"  
@@ -75,11 +75,11 @@ async function lei17(){
     if (!Array.isArray(s)) continue
     
     sArticle += `<tr><td>` + 
-      s[artArt] + `</td><td>  ` + s[artUser] + `</td><td>  ` + s[artDate] + `</td><td>  ` + s[artPR] + `</td></tr>`
+      s[artArt] + `,</td><td>  ` + s[artUser] + `,</td><td>  ` + s[artDate] + `,</td><td>  ` + s[artPR] + `</td></tr>`
 
   }
   document.getElementById("lista").innerHTML = 
-      "<p>Articles: " + aArticles.length + "</p><p> " + 
+      "<p>Pending Articles: " + aArticles.length + "</p><p> " + 
       Date() + "</p>" +
       sArticle +
       "</table>"
@@ -90,7 +90,7 @@ async function getArticles(url, regexp){
   let aArticles=[]
   let respIssue = await fetch(url)
 
-  if (respIssue.ok){               // .ok = http status ok
+  if (respIssue.ok){               
 
     let json = await respIssue.json()
 
@@ -101,7 +101,6 @@ async function getArticles(url, regexp){
     alert("resp issue BAAAAD") 
   }
 
-  //                                    // poner .filter ! nulls
   return aArticles.map( (s)=>s.match(regexp) )   //.filter((x)=>( x[artPR] == undefined && x[artUser] != undefined ) )     
 }
 
@@ -119,7 +118,7 @@ async function getComments(url){
       if (  typeof(json[0]) != "object"  ) {break} 
 
       for (let o of json){
-        if (o.body.length < 55 ){
+        if (o.body.length < 55 ){ // <55 dont bother
           aComments.push([o.body, o.user.login, o.created_at, o.id])
         }
       }
